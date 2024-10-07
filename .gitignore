@@ -1,0 +1,26 @@
+# IDE configs
+.vscode
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Python pkgs
+.venv
+
+# Python cache and db files
+__pycache__
+*.pyc
+db.sqlite3
+
+# Environment file
+.env
+
+# Misc
+.DS_Store
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
