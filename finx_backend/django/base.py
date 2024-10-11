@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 THIRD_PARTY_APPS = [
     "corsheaders",
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 # Local apps definition
@@ -144,9 +146,13 @@ AUTHENTICATION_BACKENDS = [
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
@@ -155,3 +161,4 @@ REST_FRAMEWORK = {
 
 from finx_backend.settings.cors import *  # noqa
 from finx_backend.settings.email_service import *  # noqa
+from finx_backend.settings.simple_jwt import *  # noqa
