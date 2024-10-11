@@ -135,5 +135,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = 'users.User'
 
 
+AUTHENTICATION_BACKENDS = [
+    "v1.users.authenticator.UsernameAndEmailBackend",
+]
+
+
 from finx_backend.settings.cors import *  # noqa
 from finx_backend.settings.email_service import *  # noqa
