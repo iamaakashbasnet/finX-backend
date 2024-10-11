@@ -10,11 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
+
 from finx_backend.env import env, BASE_DIR
 
 
-env.read_env(os.path.join(BASE_DIR, '.env'))
+env.read_env(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -130,6 +130,9 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+AUTH_USER_MODEL = 'users.User'
 
 
 from finx_backend.settings.cors import *  # noqa
