@@ -133,3 +133,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 from finx_backend.settings.cors import *  # noqa
+from finx_backend.settings.email_service import *  # noqa
