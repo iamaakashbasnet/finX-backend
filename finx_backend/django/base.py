@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Third party applications definition
 THIRD_PARTY_APPS = [
     "corsheaders",
+    'rest_framework',
 ]
 
 # Local apps definition
@@ -138,6 +139,18 @@ AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = [
     "v1.users.authenticator.UsernameAndEmailBackend",
 ]
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 
 from finx_backend.settings.cors import *  # noqa
