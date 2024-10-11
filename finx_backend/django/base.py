@@ -36,7 +36,7 @@ THIRD_PARTY_APPS = [
 
 # Local apps definition
 LOCAL_APPS = [
-    "v1.accounts",
+    "v1.users",
 ]
 
 # Application definition
