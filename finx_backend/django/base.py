@@ -148,6 +148,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+APPEND_SLASH = True
+
 from finx_backend.settings.cors import *  # noqa
 from finx_backend.settings.email_service import *  # noqa
 from finx_backend.settings.simple_jwt import *  # noqa
