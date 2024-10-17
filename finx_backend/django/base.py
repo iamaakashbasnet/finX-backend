@@ -37,7 +37,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "v1.users",
     "v1.data",
-    "v1.data.nepse"
+    "v1.data.nepse",
+    "v1.funds"
 ]
 
 # Application definition
