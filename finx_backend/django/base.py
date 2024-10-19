@@ -39,6 +39,7 @@ LOCAL_APPS = [
     "v1.data",
     "v1.data.nepse",
     "v1.firms",
+    "v1.clients",
     "v1.portfolios"
 ]
 

@@ -18,7 +18,6 @@ class Firm(models.Model):
     """
     name = models.CharField(max_length=255)
     managers = models.ManyToManyField(get_user_model(), related_name='managed_firms', blank=True)
-    clients = models.ManyToManyField(get_user_model(), related_name='client_firms', blank=True)
 
     def __str__(self):
         return self.name
