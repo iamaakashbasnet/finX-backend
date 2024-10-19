@@ -14,5 +14,5 @@ def create_pool_investment_portfolio(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=GeneralClient)
 def create_client_portfolio(sender, instance, created, **kwargs):
-    if created:
-        ClientPortfolio.objects.create(client=instance)
+    if created and instance.firm:
+        ClientPortfolio.objects.create(client=instance, firm=instance.firm)

@@ -8,7 +8,7 @@ class Portfolio(models.Model):
     """
     Abstract class for common portfolio properties.
     """
-    firm = models.ForeignKey(Firm, on_delete=models.CASCADE, null=True, blank=True)
+    firm = models.ForeignKey(Firm, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
