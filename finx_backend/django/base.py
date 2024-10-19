@@ -38,7 +38,7 @@ LOCAL_APPS = [
     "v1.users",
     "v1.data",
     "v1.data.nepse",
-    "v1.funds"
+    "v1.firms",
 ]
 
 # Application definition
