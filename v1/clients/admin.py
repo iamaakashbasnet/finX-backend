@@ -10,4 +10,4 @@ class PoolInvestmentClientAdmin(admin.ModelAdmin):
 
 @admin.register(GeneralClient)
 class GeneralClientAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'is_active')
