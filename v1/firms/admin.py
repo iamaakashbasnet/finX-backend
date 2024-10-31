@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from v1.firms.models import Firm
+
+
+@admin.register(Firm)
+class FirmsAdmin(admin.ModelAdmin):
+    pass
