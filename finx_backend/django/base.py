@@ -35,7 +35,9 @@ THIRD_PARTY_APPS = [
 ]
 
 CUSTOM_APPS = [
-    'v1.users'
+    'v1.users',
+    'v1.data',
+    'v1.data.nepse'
 ]
 
 # Application definition
