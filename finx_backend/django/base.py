@@ -31,10 +31,14 @@ THIRD_PARTY_APPS = [
     "corsheaders",
 ]
 
+CUSTOM_APPS = [
+    'v1.users'
+]
+
 # Application definition
 SHARED_APPS = [
     "django_tenants",
-    "app",
+    "v1.app",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,9 +46,10 @@ SHARED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     *THIRD_PARTY_APPS,
+    *CUSTOM_APPS,
 ]
 
-TENANT_APPS = ["firms"]
+TENANT_APPS = ["v1.firms"]
 
 INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
@@ -134,10 +139,30 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = 'users.User'
+
 TENANT_MODEL = 'app.Firm'
 
 TENANT_DOMAIN_MODEL = 'app.Domain'
 
-PUBLIC_SCHEMA_URLCONF = "app.urls"
+PUBLIC_SCHEMA_URLCONF = "v1.app.urls"
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+APPEND_SLASH = True
 
 from finx_backend.settings.cors import *  # noqa
+from finx_backend.settings.simple_jwt import *
