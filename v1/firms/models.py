@@ -1,10 +1,11 @@
-from django.contrib.auth import get_user_model
 from django.db import models
+from django_tenants.models import TenantMixin, DomainMixin
 
 
-class Firm(models.Model):
+class Firm(TenantMixin):
     name = models.CharField(max_length=255)
-    managers = models.ManyToManyField(get_user_model(), related_name='managed_firms', blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.name
+
+class Domain(DomainMixin):
+    pass

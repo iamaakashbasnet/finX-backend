@@ -1,8 +1,13 @@
 from django.contrib import admin
 
-from v1.firms.models import Firm
+from v1.firms.models import Firm, Domain
 
 
-@admin.register(Firm)
-class FirmsAdmin(admin.ModelAdmin):
-    pass
+class TenantAdminSite(admin.AdminSite):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.register(Firm)
+        self.register(Domain)
+
+
+tenant_admin_site = TenantAdminSite(name='tenant_admin_site')

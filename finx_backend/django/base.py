@@ -37,24 +37,24 @@ THIRD_PARTY_APPS = [
 CUSTOM_APPS = [
     'v1.users',
     'v1.data',
-    'v1.data.nepse'
+    'v1.data.nepse',
 ]
 
 # Application definition
 SHARED_APPS = [
     "django_tenants",
-    "v1.app",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "v1.firms",
     *THIRD_PARTY_APPS,
     *CUSTOM_APPS,
 ]
 
-TENANT_APPS = ["v1.firms"]
+TENANT_APPS = ["v1.clients"]
 
 INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
@@ -70,7 +70,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "finx_backend.urls"
+ROOT_URLCONF = "finx_backend.urls_tenants"
 
 TEMPLATES = [
     {
@@ -146,11 +146,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = 'users.User'
 
-TENANT_MODEL = 'app.Firm'
+TENANT_MODEL = 'firms.Firm'
 
-TENANT_DOMAIN_MODEL = 'app.Domain'
+TENANT_DOMAIN_MODEL = 'firms.Domain'
 
-PUBLIC_SCHEMA_URLCONF = "v1.app.urls"
+PUBLIC_SCHEMA_URLCONF = "finx_backend.urls_public"
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -170,4 +170,4 @@ REST_FRAMEWORK = {
 APPEND_SLASH = True
 
 from finx_backend.settings.cors import *  # noqa
-from finx_backend.settings.simple_jwt import *
+from finx_backend.settings.simple_jwt import *  # noqa
