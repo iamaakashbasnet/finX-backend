@@ -1,8 +1,20 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
+from v1.clients.models import PoolInvestmentClient, GeneralClient
+from v1.managers.models import FirmExecutive, FirmManager
+
 
 class UsernameAndEmailBackend(ModelBackend):
+    def is_user_associated_with_tenant(self, user, tenant):
+        associated = (
+                PoolInvestmentClient.objects.filter(user=user, is_active=True).exists() or
+                GeneralClient.objects.filter(user=user, is_active=True).exists() or
+                FirmManager.objects.filter(user=user, is_active=True).exists() or
+                FirmExecutive.objects.filter(user=user, is_active=True).exists()
+        )
+        return associated
+
     def authenticate(self, request, username=None, password=None, **kwargs):
         user_model = get_user_model()
 
@@ -22,5 +34,11 @@ class UsernameAndEmailBackend(ModelBackend):
             # decreases the chances of timing attack to check for valid username
             user_model().set_password(password)
         else:
+            if not self.is_user_associated_with_tenant(user, request.tenant):
+                if user.is_superuser:
+                    return user
+                else:
+                    return None
+
             if user.check_password(password) and self.user_can_authenticate(user):
                 return user
