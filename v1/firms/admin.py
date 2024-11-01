@@ -2,6 +2,11 @@ from django.contrib import admin
 
 from v1.firms.models import Firm, Domain
 
+# Admin site customization
+admin.site.site_header = "finX Admin"
+admin.site.site_title = "finX Admin Portal"
+admin.site.index_title = "Welcome to the finX Admin Dashboard"
+
 
 class TenantAdminSite(admin.AdminSite):
     def __init__(self, *args, **kwargs):
