@@ -34,6 +34,11 @@ Create tenant through cmd or from admin panel (http://localhost:8000/admin-tenan
 $ python manage.py create_tenant --domain-domain=example.localhost --schema_name=example --name=Example
 ```
 
+Fetch Nepal Stock Exchange data
+```
+GET request on route: http://localhost:8000/data/nepse/update-data/
+```
+
 ## Used Techs
 - Django
 - Django Rest Framework
