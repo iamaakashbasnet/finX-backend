@@ -95,9 +95,9 @@ WSGI_APPLICATION = "finx_backend.wsgi.application"
 DATABASES = {
     "default": {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'finX',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': 5432,
     }
