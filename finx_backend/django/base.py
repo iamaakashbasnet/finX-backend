@@ -54,7 +54,7 @@ SHARED_APPS = [
     *CUSTOM_APPS,
 ]
 
-TENANT_APPS = ["v1.clients", "v1.portfolios"]
+TENANT_APPS = ["v1.managers", "v1.clients", "v1.portfolios"]
 
 INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
