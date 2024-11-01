@@ -20,9 +20,9 @@ class GeneralClientAdmin(admin.ModelAdmin):
 
 @admin.register(PoolInvestmentPortfolioEntry)
 class PoolInvestmentPortfolioEntryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['portfolio', 'security', 'quantity', 'rate', 'total_investment', 'current_value', 'created_at']
 
 
 @admin.register(ClientPortfolioEntry)
 class ClientPortfolioEntryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['portfolio', 'security', 'quantity', 'rate', 'total_investment', 'current_value', 'created_at']
