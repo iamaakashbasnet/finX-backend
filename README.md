@@ -24,7 +24,7 @@ Create superuser
 $ python manage.py createsuperuser
 ```
 
-Create public
+Create public tenant
 ```
 $ python manage.py create_tenant --domain-domain=localhost --schema_name=public --name=Public
 ```
