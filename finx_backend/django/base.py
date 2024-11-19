@@ -68,6 +68,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "v1.users.auth_middleware.TenantAuthMiddleware"
 ]
 
 ROOT_URLCONF = "finx_backend.urls_tenants"
@@ -168,7 +169,8 @@ REST_FRAMEWORK = {
 APPEND_SLASH = True
 
 AUTHENTICATION_BACKENDS = [
-    'v1.users.authenticator.UsernameAndEmailBackend'
+    'v1.users.authenticator.PublicBackend',
+    'v1.users.authenticator.TenantBackend',
 ]
 
 from finx_backend.settings.cors import *  # noqa
