@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenBlacklistView as _TokenBlacklistView,
 )
 
-from v1.users.serializers import (
+from v1.users.serializers.token import (
     TokenObtainPairSerializer,
     TokenRefreshSerializer,
     TokenVerifySerializer,

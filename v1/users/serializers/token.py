@@ -42,9 +42,3 @@ class TokenBlacklistSerializer(_TokenBlacklistSerializer, BaseCookieTokenSeriali
     def validate(self, attrs):
         attrs['refresh'] = self.get_refresh_token()
         return super().validate(attrs)
-
-
-class UserSerializer(ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ['id', 'first_name', 'last_name', 'email']
