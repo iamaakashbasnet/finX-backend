@@ -1,10 +1,8 @@
 from datetime import datetime
 from decimal import Decimal
-
 from django.db import transaction
 from nepse import Nepse
-
-from v1.data.nepse.models import Security, SecurityData
+from ..models import Security, SecurityData
 
 nepse = Nepse()
 nepse.setTLSVerification(False)

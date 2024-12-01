@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
-
-from v1.data.nepse.models import Security, SecurityData
+from ..models import Security, SecurityData
 
 
 class SecurityModelTest(TestCase):

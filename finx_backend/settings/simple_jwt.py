@@ -1,7 +1,5 @@
 from datetime import timedelta
-
 from finx_backend.env import env
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),

@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from v1.clients.models import PoolInvestmentClient, GeneralClient
 
 
