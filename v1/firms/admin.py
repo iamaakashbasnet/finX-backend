@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from v1.firms.models import Firm, Domain
+from .models import Firm, Domain
 
 # Admin site customization
 admin.site.site_header = "finX Admin"

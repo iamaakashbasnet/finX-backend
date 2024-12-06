@@ -1,5 +1,6 @@
 from django.contrib import admin
-from v1.clients.models import PoolInvestmentClient, GeneralClient
+
+from .models import PoolInvestmentClient, GeneralClient
 
 
 @admin.register(PoolInvestmentClient)

@@ -1,5 +1,5 @@
-from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 
 from v1.clients.models import PoolInvestmentClient, GeneralClient
 from v1.managers.models import FirmExecutive, FirmManager

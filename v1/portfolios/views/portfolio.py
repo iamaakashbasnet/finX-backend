@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 
-from v1.portfolios.models import PoolInvestmentPortfolio, ClientPortfolio
-from v1.portfolios.serializers import PoolInvestmentPortfolioSerializer, ClientPortfolioSerializer
+from ..models import PoolInvestmentPortfolio, ClientPortfolio
+from ..serializers import PoolInvestmentPortfolioSerializer, ClientPortfolioSerializer
 
 
 class PoolInvestmentPortfolioViewSet(viewsets.ModelViewSet):

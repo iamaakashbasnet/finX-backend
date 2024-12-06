@@ -1,5 +1,6 @@
-from django.urls import path, include
 from django.contrib import admin
+from django.urls import path, include
+
 from v1.firms.admin import tenant_admin_site
 
 urlpatterns = [

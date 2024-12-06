@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from v1.portfolios.models import PoolInvestmentPortfolioEntry, ClientPortfolioEntry
+from ..models import PoolInvestmentPortfolioEntry, ClientPortfolioEntry
 
 
 class PoolInvestmentPortfolioEntrySerializer(ModelSerializer):

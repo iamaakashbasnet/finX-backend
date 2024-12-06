@@ -1,6 +1,4 @@
-from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.exceptions import InvalidToken
-from rest_framework.serializers import ModelSerializer
 from rest_framework_simplejwt.serializers import (
     TokenObtainPairSerializer as _TokenObtainPairSerializer,
     TokenRefreshSerializer as _TokenRefreshSerializer,

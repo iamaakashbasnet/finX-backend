@@ -3,9 +3,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from v1.data.nepse.models import SecurityData, Security
-from v1.data.nepse.serializers import SecurityDataSerializer, SecuritySerializer
-from v1.data.nepse.services.nepse_api import NepseAPI
+from .models import SecurityData, Security
+from .serializers import SecurityDataSerializer, SecuritySerializer
+from ..nepse.services.nepse_api import NepseAPI
 
 
 class UpdateDataView(APIView):

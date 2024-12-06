@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
 from v1.users.serializers.user import UserSerializer
 from .models import PoolInvestmentClient, GeneralClient
 

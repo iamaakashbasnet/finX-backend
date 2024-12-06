@@ -1,7 +1,7 @@
 from django.apps import apps
-from django.contrib.auth.models import BaseUserManager
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
 

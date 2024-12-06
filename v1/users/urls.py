@@ -1,12 +1,12 @@
 from django.urls import path
 
-from .views.user import RequestUserView
 from .views.token import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
     TokenBlacklistView
 )
+from .views.user import RequestUserView
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token-obtain'),
