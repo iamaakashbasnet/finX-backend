@@ -10,7 +10,6 @@ from rest_framework_simplejwt.serializers import (
 class BaseCookieTokenSerializer:
     def get_refresh_token(self):
         refresh_token = self.context['request'].COOKIES.get('rt')
-        print('Getting refresh token', refresh_token)
         if not refresh_token:
             raise InvalidToken('No valid token found.')
         return refresh_token
