@@ -20,10 +20,17 @@ class AbstractPortfolioEntry(models.Model):
         choices=TRANSACTION_TYPE_CHOICES,
         default=BUY,
     )
-    
+    remaining_quantity = models.PositiveIntegerField(default=0)
+
     @property
     def total_investment(self):
         return self.quantity * self.rate
+
+    def save(self, *args, **kwargs):
+        # Set remaining_quantity to quantity on first creation
+        if not self.pk:
+            self.remaining_quantity = self.quantity
+        super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
