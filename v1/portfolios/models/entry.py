@@ -4,33 +4,15 @@ from v1.data.nepse.models import Security
 
 
 class AbstractPortfolioEntry(models.Model):
-    BUY = "BUY"
-    SELL = "SELL"
-    TRANSACTION_TYPE_CHOICES = [
-        (BUY, "Buy"),
-        (SELL, "Sell"),
-    ]
-
     security = models.ForeignKey(Security, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     rate = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
-    type = models.CharField(
-        max_length=4,
-        choices=TRANSACTION_TYPE_CHOICES,
-        default=BUY,
-    )
-    remaining_quantity = models.PositiveIntegerField(default=0)
+    transaction_type = models.CharField(max_length=4, choices=[('BUY', 'Buy'), ('SELL', 'Sell')])
 
     @property
     def total_investment(self):
         return self.quantity * self.rate
-
-    def save(self, *args, **kwargs):
-        # Set remaining_quantity to quantity on first creation
-        if not self.pk:
-            self.remaining_quantity = self.quantity
-        super().save(*args, **kwargs)
 
     class Meta:
         abstract = True

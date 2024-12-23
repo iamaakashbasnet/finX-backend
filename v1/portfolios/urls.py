@@ -5,18 +5,19 @@ from .views import PoolInvestmentPortfolioViewSet, ClientPortfolioViewSet
 from .views.entry import (
     PoolInvestmentPortfolioEntryViewSet,
     ClientPortfolioEntryViewSet,
-    EntrySummaryView
+    EntriesSummaryView
 )
 
 router = routers.DefaultRouter()
 
 router.register(r'pool', PoolInvestmentPortfolioViewSet, basename='pool-portfolio')
+router.register(r'pool/entry', PoolInvestmentPortfolioEntryViewSet, basename='pool-entry')
+
 router.register(r'client', ClientPortfolioViewSet, basename='client-portfolio')
-router.register(r'entry/pool', PoolInvestmentPortfolioEntryViewSet, basename='pool-entry')
-router.register(r'entry/client', ClientPortfolioEntryViewSet, basename='client-entry')
+router.register(r'client/entry', ClientPortfolioEntryViewSet, basename='client-entry')
 
 urlpatterns = [
-    path('entry/entry-summary/<int:portfolio_pk>/', EntrySummaryView.as_view(), name='entry-summary'),
+    path('pool/entries-summary/<int:portfolio_pk>', EntriesSummaryView.as_view(), name='entries-summary'),
 ]
 
 urlpatterns += router.urls

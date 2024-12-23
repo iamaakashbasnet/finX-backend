@@ -9,14 +9,14 @@ class PoolInvestmentPortfolioEntrySerializer(ModelSerializer):
 
     class Meta:
         model = PoolInvestmentPortfolioEntry
-        fields = ['portfolio', 'security', 'type', 'quantity', 'remaining_quantity', 'rate', 'total_investment',
+        fields = ['portfolio', 'security', 'transaction_type', 'quantity', 'rate', 'total_investment',
                   'created_at']
 
 
 class ClientPortfolioEntrySerializer(ModelSerializer):
     security = SecuritySerializer()
-    
+
     class Meta:
         model = ClientPortfolioEntry
-        fields = ['portfolio', 'security', 'type', 'quantity', 'remaining_quantity', 'rate', 'total_investment',
+        fields = ['portfolio', 'security', 'transaction_type', 'quantity', 'rate', 'total_investment',
                   'created_at']

@@ -1,4 +1,4 @@
-from django.db.models import Sum, F, Q
+from django.db.models import Sum, F, Q, Case, When, IntegerField
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -22,20 +22,26 @@ class ClientPortfolioEntryViewSet(ModelViewSet):
     permission_classes = [AllowAny]
 
 
-class EntrySummaryView(APIView):
+class EntriesSummaryView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
         entries = PoolInvestmentPortfolioEntry.objects.filter(portfolio=kwargs.get('portfolio_pk'))
 
         summary = (
-            entries.values('security')  # Group by security
+            entries.values('security')
             .annotate(
-                net_total_shares=Sum('remaining_quantity'),
-                total_cost=Sum(F('quantity') * F('rate'), filter=Q(type='BUY')),
-                total_bought_shares=Sum('quantity', filter=Q(type='BUY'))
+                net_total_shares=Sum(
+                    Case(
+                        When(transaction_type='BUY', then=F('quantity')),
+                        When(transaction_type='SELL', then=-F('quantity')),
+                        default=0,
+                        output_field=IntegerField()
+                    )
+                ),
+                total_cost=Sum(F('quantity') * F('rate'), filter=Q(transaction_type='BUY')),
+                total_bought_shares=Sum('quantity', filter=Q(transaction_type='BUY'))
             )
-            .values('security', 'net_total_shares', 'total_cost', 'total_bought_shares')
         )
 
         result = []
@@ -45,13 +51,13 @@ class EntrySummaryView(APIView):
             total_cost = entry['total_cost'] or 0
             total_bought_shares = entry['total_bought_shares'] or 0
 
-            # Calculate average cost
+            # Calculate WACC (average cost)
             average_cost = total_cost / total_bought_shares if total_bought_shares > 0 else 0
 
             result.append({
                 "security": SecuritySerializer(Security.objects.get(pk=security)).data,
                 "quantity": net_total_shares,
-                "rate": round(average_cost, 2),
+                "rate": round(average_cost, 2),  # Use WACC for rate
             })
 
         return Response(result)
