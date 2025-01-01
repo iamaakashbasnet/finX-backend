@@ -29,7 +29,7 @@ class PoolInvestmentClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PoolInvestmentClient
-        fields = ['user', 'user_id', 'shares_amount', 'nav_value', 'is_active']
+        fields = ['id', 'user', 'user_id', 'shares_amount', 'nav_value', 'is_active']
 
 
 class GeneralClientSerializer(serializers.ModelSerializer):
@@ -56,4 +56,4 @@ class GeneralClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GeneralClient
-        fields = ['user', 'user_id', 'payments', 'is_active']
+        fields = ['id', 'user', 'user_id', 'payments', 'is_active']
