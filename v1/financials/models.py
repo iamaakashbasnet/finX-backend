@@ -11,7 +11,7 @@ class FundDetail(models.Model):
 class CapitalDetail(models.Model):
     paid_up_capital = models.DecimalField(max_digits=15, decimal_places=2, help_text="Total paid-up capital.")
     total_share_units = models.PositiveIntegerField(help_text="Total number of share units.")
-
+    nav_value = models.DecimalField(max_digits=10, decimal_places=2)
 
 class ProfitDetail(models.Model):
     unreleased_profit = models.DecimalField(max_digits=15, decimal_places=2,
