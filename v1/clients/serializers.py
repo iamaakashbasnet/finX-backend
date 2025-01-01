@@ -7,53 +7,61 @@ from .models import PoolInvestmentClient, GeneralClient
 
 class PoolInvestmentClientSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
-    user_id = serializers.PrimaryKeyRelatedField(
-        source='user', queryset=get_user_model().objects.all(), write_only=True
-    )
+    user_email = serializers.EmailField(write_only=True)  # Use email instead of user_id
 
     def get_user(self, instance):
-        # Only for GET requests: return expanded user info
+        """Return expanded user info for GET requests."""
         return UserSerializer(instance.user).data
 
+    def create(self, validated_data):
+        """Handle creation with email."""
+        user_email = validated_data.pop('user_email')
+        try:
+            user = get_user_model().objects.get(email=user_email)
+        except get_user_model().DoesNotExist:
+            raise serializers.ValidationError({"user_email": "User with this email does not exist."})
+
+        validated_data['user'] = user  # Set the user in validated data
+        return super().create(validated_data)
+
     def update(self, instance, validated_data):
-        # Prevent changing the user field
-        user = validated_data.get('user', None)
-        if user and user != instance.user.id:
-            raise serializers.ValidationError("The user field cannot be updated.")
+        """Prevent changing the user field."""
+        if 'user_email' in validated_data:
+            raise serializers.ValidationError({"user_email": "The user field cannot be updated."})
 
-        # Remove user from validated data as we are not updating it
-        validated_data.pop('user', None)
-
-        # Update other fields
         return super().update(instance, validated_data)
 
     class Meta:
         model = PoolInvestmentClient
-        fields = ['id', 'user', 'user_id', 'shares_amount', 'nav_value', 'is_active']
+        fields = ['id', 'user', 'user_email', 'shares_amount', 'nav_value', 'is_active']
 
 
 class GeneralClientSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
-    user_id = serializers.PrimaryKeyRelatedField(
-        source='user', queryset=get_user_model().objects.all(), write_only=True
-    )
+    user_email = serializers.EmailField(write_only=True)
 
     def get_user(self, instance):
-        # Only for GET requests: return expanded user info
+        """Return expanded user info for GET requests."""
         return UserSerializer(instance.user).data
 
+    def create(self, validated_data):
+        """Handle creation with email."""
+        user_email = validated_data.pop('user_email')
+        try:
+            user = get_user_model().objects.get(email=user_email)
+        except get_user_model().DoesNotExist:
+            raise serializers.ValidationError({"user_email": "User with this email does not exist."})
+
+        validated_data['user'] = user
+        return super().create(validated_data)
+
     def update(self, instance, validated_data):
-        # Prevent changing the user field
-        user = validated_data.get('user', None)
-        if user and user != instance.user.id:
-            raise serializers.ValidationError("The user field cannot be updated.")
+        """Prevent changing the user field."""
+        if 'user_email' in validated_data:
+            raise serializers.ValidationError({"user_email": "The user field cannot be updated."})
 
-        # Remove user from validated data as we are not updating it
-        validated_data.pop('user', None)
-
-        # Update other fields
         return super().update(instance, validated_data)
 
     class Meta:
         model = GeneralClient
-        fields = ['id', 'user', 'user_id', 'payments', 'is_active']
+        fields = ['id', 'user', 'user_email', 'payments', 'is_active']
