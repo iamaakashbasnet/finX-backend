@@ -31,4 +31,8 @@ class UserWithEmailCheckView(APIView):
             return Response({'error': 'Invalid email format'}, status=HTTP_400_BAD_REQUEST)
 
         user_exists = get_user_model().objects.filter(email=email).exists()
-        return Response({'detail': user_exists}, status=HTTP_200_OK)
+
+        if user_exists:
+            return Response({'detail': user_exists}, status=HTTP_200_OK)
+        else:
+            return Response({'detail': user_exists}, status=HTTP_400_BAD_REQUEST)
