@@ -6,7 +6,7 @@ from .views.token import (
     TokenVerifyView,
     TokenBlacklistView
 )
-from .views.user import RequestUserView
+from .views.user import RequestUserView, UserWithEmailCheckView
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token-obtain'),
@@ -15,4 +15,5 @@ urlpatterns = [
     path('token/blacklist/', TokenBlacklistView.as_view(), name='token-blacklist'),
 
     path('request-user-data/', RequestUserView.as_view(), name='request-user-data'),
+    path('user-with-email-check/', UserWithEmailCheckView.as_view(), name='user-with-email-check'),
 ]
