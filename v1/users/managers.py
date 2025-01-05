@@ -8,9 +8,7 @@ from django.utils.translation import gettext_lazy as _
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, username, email, password, **extra_fields):
-        if not username:
-            raise ValueError(_("The given username must be set"))
+    def _create_user(self, email, password, username, **extra_fields):
         if email is None:
             raise ValueError(_("The given email must be set"))
 

@@ -22,9 +22,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             "unique": _("A user with that username already exists."),
         },
     )
-    email = models.EmailField(_("email address"), unique=True, blank=False)
-    first_name = models.CharField(_("first name"), max_length=150, blank=False)
-    last_name = models.CharField(_("last name"), max_length=150, blank=False)
+    email = models.EmailField(_("email address"), unique=True, blank=False, null=False)
+    first_name = models.CharField(_("first name"), max_length=150, blank=False, null=True)
+    last_name = models.CharField(_("last name"), max_length=150, blank=False, null=True)
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -45,7 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["email", "first_name", "last_name"]
+    REQUIRED_FIELDS = ["email"]
 
     class Meta:
         verbose_name = _("user")
