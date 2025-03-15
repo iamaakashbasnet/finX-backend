@@ -21,6 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         error_messages={
             "unique": _("A user with that username already exists."),
         },
+        blank=True, null=True
     )
     email = models.EmailField(_("email address"), unique=True, blank=False, null=False)
     first_name = models.CharField(_("first name"), max_length=150, blank=False, null=True)

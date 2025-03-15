@@ -1,8 +1,13 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
 from rest_framework import serializers
 
 from v1.users.serializers.user import UserSerializer
 from .models import PoolInvestmentClient, GeneralClient
+from v1.users.utils.send_account_creation_email import send_account_verification_email
+from v1.users.utils.username_generator import generate_unique_username
 
 
 class PoolInvestmentClientSerializer(serializers.ModelSerializer):
@@ -50,7 +55,12 @@ class GeneralClientSerializer(serializers.ModelSerializer):
         try:
             user = get_user_model().objects.get(email=user_email)
         except get_user_model().DoesNotExist:
-            raise serializers.ValidationError({"user_email": "User with this email does not exist."})
+            user = get_user_model().objects.create(email=user_email, username=generate_unique_username(user_email))
+            toke_generator = PasswordResetTokenGenerator()
+            token = toke_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+            send_account_verification_email(self.context.get('request'), user, token, uid)
 
         validated_data['user'] = user
         return super().create(validated_data)
